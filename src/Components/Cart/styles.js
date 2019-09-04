@@ -78,7 +78,7 @@ export const Content = styled.div`
       }
 
       #remove {
-        display: block;
+        display: flex;
         padding-left: 75px;
         margin-bottom: 50px;
       }
@@ -140,5 +140,32 @@ export const Button = styled.button`
   transition: 0.2s ease;
   &:hover {
     background-color: #20bf6b;
+  }
+`;
+
+export const EmptyCart = styled.div`
+  display: flex;
+  padding: 20px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transition: 0.4s ease;
+  background: rgb(16%, 16%, 16%, 0.9);
+  box-shadow: 0 4px 6px 0 hsl(0, 0%, 0%, 0.1);
+  &:hover {
+    box-shadow: 0 4px 6px 0 hsla(0, 0%, 0%, 0.5);
+    background: rgb(61, 61, 61, 0.5);
+  }
+  strong {
+    margin-top: 10px;
+    color: #d1d8e0;
+    font-size: 24px;
+    font-weight: normal;
+  }
+  p {
+    color: #20bf6b;
+    margin-top: 10px;
+    font-size: 12px;
   }
 `;
