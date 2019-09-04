@@ -17,9 +17,6 @@
     "import/prefer-default-export": "off",
     "no-unused-expressions": "off",
     "linebreak-style": "off",
-    "no-param-reassign": "off",
-    "no-return-assign": "off",
-    "no-alert": "off",
-    "no-undef": "off"
+    "no-console": "off"
   }
 }
