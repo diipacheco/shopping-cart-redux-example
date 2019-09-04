@@ -1,23 +1,41 @@
 import React from 'react';
 import { OffCanvas, OffCanvasMenu, OffCanvasBody } from 'react-offcanvas';
-import { MdClose, MdLocalGroceryStore } from 'react-icons/md';
+import {
+  MdClose,
+  MdLocalGroceryStore,
+  MdRemoveShoppingCart,
+  MdAddShoppingCart,
+} from 'react-icons/md';
 import { useSelector, useDispatch } from 'react-redux';
 import Customscroll from 'react-customscroll';
+import { ToastContainer, toast } from 'react-toastify';
 import { toggleCart, removeFromCart } from '../../Store/Ducks/Cart/actions';
 import {
-  Container, CartHeader, Content, Footer, Button,
+  Container, CartHeader, Content, Footer, Button, EmptyCart,
 } from './styles';
+import 'react-toastify/dist/ReactToastify.css';
+
 import Products from '../Products';
 
 export default function Cart() {
+  const dispatch = useDispatch();
   const status = useSelector(state => state.cart.isMenuOpened);
   const products = useSelector(state => state.cart.addedItems);
-  const dispatch = useDispatch();
   const total = products.reduce((subtotal, item) => subtotal + item.price, 0);
   const totalFormated = total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-
+  const success = () => {
+    toast.success(`Obrigado pela compra, o subtotal é: ${totalFormated}`, {
+      position: toast.POSITION.TOP_RIGHT,
+    });
+  };
+  const info = () => {
+    toast.info('Adicione algum produto no carrinho!', {
+      position: toast.POSITION.TOP_RIGHT,
+    });
+  };
   return (
     <Container>
+      <ToastContainer />
       <OffCanvas
         width={360}
         transitionDuration={300}
@@ -43,16 +61,31 @@ export default function Cart() {
           <div style={{ height: '350px' }}>
             <Customscroll>
               <Content>
+                {!products.length && (
+                  <EmptyCart>
+                    <MdRemoveShoppingCart size={120} color="rgb(204, 204, 204, 0.2)" />
+                    <strong>Seu carrinho está vazio!</strong>
+                    <p>Adicione algum quadrinho para prosseguir com a compra.</p>
+                  </EmptyCart>
+                )}
                 <ul>
                   {products.map(product => (
                     <li key={product.id}>
                       <img src={product.image} alt="Produto Adicionado" />
                       <div>
                         <h5>{product.title}</h5>
-                        <p>Quatidade: 1</p>
+                        <p>{`Quantidade: ${product.qty}`}</p>
                       </div>
                       <div id="price">
                         <div id="remove">
+                          <button type="button" className="exit">
+                            <MdAddShoppingCart
+                              style={{ marginRight: '10px' }}
+                              size={20}
+                              color="#26de81"
+                              onClick={() => {}}
+                            />
+                          </button>
                           <button
                             type="button"
                             className="exit"
@@ -79,14 +112,7 @@ export default function Cart() {
               <h5>Subtotal</h5>
               <h4>{totalFormated}</h4>
             </div>
-            <Button
-              type="button"
-              onClick={() => {
-                !products.length
-                  ? alert('Adicione algum produto no carrinho')
-                  : alert(`Obrigado pela compra, o subtotal é: ${totalFormated}`);
-              }}
-            >
+            <Button type="button" onClick={!products.length ? info : success}>
               Checkout
             </Button>
           </Footer>
