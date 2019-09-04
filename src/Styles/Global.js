@@ -12,12 +12,15 @@ export default createGlobalStyle`
    }
 
    body{
-     font-family: 'Roboto', sans-serif;
      color: #FFF;
      background: #353535;
      font-size: 16px;
      -webkit-font-smoothing: antialiased;
 
+   }
+
+   body, input, button{
+     font-family: 'Roboto', sans-serif;
    }
 
    html, body, #root{
