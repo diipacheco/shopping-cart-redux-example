@@ -21,7 +21,8 @@ export default function Cart() {
   const dispatch = useDispatch();
   const status = useSelector(state => state.cart.isMenuOpened);
   const products = useSelector(state => state.cart.addedItems);
-  const total = products.reduce((subtotal, item) => subtotal + item.price, 0);
+  const total = products.reduce((subtotal, item) => subtotal + item.subtotal, 0);
+
   const totalFormated = total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   const success = () => {
     toast.success(`Obrigado pela compra, o subtotal é: ${totalFormated}`, {
@@ -74,7 +75,7 @@ export default function Cart() {
                       <img src={product.image} alt="Produto Adicionado" />
                       <div>
                         <h5>{product.title}</h5>
-                        <p>{`Quantidade: ${product.qty}`}</p>
+                        <p>{`Quantidade: ${product.addedToCart}`}</p>
                       </div>
                       <div id="price">
                         <div id="remove">
@@ -95,7 +96,7 @@ export default function Cart() {
                           </button>
                         </div>
                         <h4>
-                          {product.price.toLocaleString('pt-BR', {
+                          {product.subtotal.toLocaleString('pt-BR', {
                             style: 'currency',
                             currency: 'BRL',
                           })}
