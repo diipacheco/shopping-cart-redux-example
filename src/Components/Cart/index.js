@@ -9,7 +9,7 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import Customscroll from 'react-customscroll';
 import { ToastContainer, toast } from 'react-toastify';
-import { toggleCart, removeFromCart } from '../../Store/Ducks/Cart/actions';
+import { toggleCart, removeFromCart, addToCart } from '../../Store/Ducks/Cart/actions';
 import {
   Container, CartHeader, Content, Footer, Button, EmptyCart,
 } from './styles';
@@ -84,7 +84,7 @@ export default function Cart() {
                               style={{ marginRight: '10px' }}
                               size={20}
                               color="#26de81"
-                              onClick={() => {}}
+                              onClick={() => dispatch(addToCart(product.id))}
                             />
                           </button>
                           <button
