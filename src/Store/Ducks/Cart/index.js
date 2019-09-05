@@ -23,39 +23,36 @@ const reducer = (state = INITIAL_STATE, action) => {
         products: action.payload.data,
       };
     case Types.ADD_TO_CART: {
-      const addedItem = state.products.find(item => item.id === action.payload.id);
+      const itemToAdd = state.products.find(item => item.id === action.payload.id);
       const existedItem = state.addedItems.find(item => action.payload.id === item.id);
+
       if (existedItem) {
-        addedItem.qty += 1;
+        itemToAdd.addedToCart += 1;
+        if (itemToAdd.addedToCart >= 1) {
+          itemToAdd.subtotal += itemToAdd.price;
+        }
 
         return {
           ...state,
+          addedItems: [...state.addedItems],
           isMenuOpened: true,
         };
       }
-      addedItem.qty = 1;
-      const newTotal = state.checkoutTotal + addedItem.price;
+      itemToAdd.addedToCart = 1;
       return {
         ...state,
-        addedItems: [...state.addedItems, addedItem],
-        checkoutTotal: newTotal,
+        addedItems: [...state.addedItems, itemToAdd],
         isMenuOpened: true,
+        products: [...state.products],
       };
     }
     case Types.REMOVE_FROM_CART: {
-      console.log(state.addedItems);
       const newItems = state.addedItems.filter(item => action.payload.id !== item.id);
       return {
         ...state,
         addedItems: newItems,
       };
     }
-    case Types.ADD_QUANTITY:
-      return {};
-    case Types.CHECKOUT_PRODUCTS:
-      return {};
-    case Types.SEARCH_PRODUCT:
-      return {};
     case Types.TOGGLE_CART:
       return {
         ...state,
