@@ -8,8 +8,9 @@ export const Container = styled.header`
   min-width: 350px;
   height: 130px;
   border-bottom: 1px solid rgb(75, 75, 75, 0.9);
-  padding: 0 50px;
-  div {
+  padding: 0 80px;
+
+  #cart {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -23,7 +24,7 @@ export const Container = styled.header`
     color: #fff;
 
     small {
-      font-size: 12px;
+      font-size: 10px;
       color: #fff;
     }
   }
@@ -33,6 +34,7 @@ export const Container = styled.header`
     cursor: pointer;
   }
   img {
+    display: inline-block;
     max-height: 65px;
   }
 `;
