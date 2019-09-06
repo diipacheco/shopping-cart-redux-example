@@ -1,5 +1,4 @@
 import React from 'react';
-import { createSelector } from 'reselect';
 import { OffCanvas, OffCanvasMenu, OffCanvasBody } from 'react-offcanvas';
 import {
   MdClose,
@@ -22,12 +21,7 @@ export default function Cart() {
   const dispatch = useDispatch();
   const status = useSelector(state => state.cart.isMenuOpened);
   const products = useSelector(state => state.cart.addedItems);
-
-  const total = createSelector(
-    state => state.cart.addedItems,
-    items => items.reduce((subtotal, item) => subtotal + item.subtotal, 0),
-  );
-
+  const total = products.reduce((subtotal, item) => subtotal + item.subtotal, 0);
   const totalFormated = total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   const success = () => {
     toast.success(`Obrigado pela compra, o subtotal é: ${totalFormated}`, {
@@ -39,6 +33,7 @@ export default function Cart() {
       position: toast.POSITION.TOP_RIGHT,
     });
   };
+
   return (
     <Container>
       <ToastContainer />
